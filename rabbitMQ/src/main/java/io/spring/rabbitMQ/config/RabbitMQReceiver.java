@@ -14,6 +14,9 @@ public class RabbitMQReceiver {
     private static Logger logger = LogManager.getLogger(RabbitMQReceiver.class.toString());
     @RabbitHandler
     public void receiver(ManuOrder manuOrder){
+
         logger.info("MenuOrder listner invoked -Consuming message with ManuOrder Indentifier : " + manuOrder.getOrderIdentifier());
     }
+//    @RabbitHandler
+//    public void receiver()
 }

@@ -74,6 +74,7 @@ public class RabbitMQConfig {
         rabbitTemplate.setDefaultReceiveQueue(queueName);
         rabbitTemplate.setMessageConverter(jsonMessageConverter());
         rabbitTemplate.setReplyAddress(queueName);
+        // the line below has to looked as it will we making new consumers per listener for 60s.
         rabbitTemplate.setUseDirectReplyToContainer(false);
         return rabbitTemplate;
     }
@@ -83,8 +84,7 @@ public class RabbitMQConfig {
         final SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
         factory.setConnectionFactory(connectionFactory());
         factory.setMessageConverter(jsonMessageConverter());
-//        factory.setConcurrentConsumers(concurrentConsumers);
-//        factory.setMaxConcurrentConsumers(maxConcurrentConsumers);
+        factory.setReceiveTimeout(15000L);
         factory.setErrorHandler(errorHandler());
         return factory;
     }
